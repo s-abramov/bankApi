@@ -69,11 +69,12 @@ public class AccountDao implements IAccountDao {
 
             preparedStatement.setLong(1, accountId);
             ResultSet resultSet = preparedStatement.executeQuery();
-            account.setSelfId(resultSet.getLong("self_id"));
-            account.setClientId(resultSet.getLong("client_id"));
-            account.setAccountNumber(resultSet.getString("account_number"));
-            account.setAccountBalance(resultSet.getBigDecimal("account_balance"));
-            preparedStatement.executeUpdate();
+            if (resultSet.next()) {
+                account.setSelfId(resultSet.getLong("self_id"));
+                account.setClientId(resultSet.getLong("client_id"));
+                account.setAccountNumber(resultSet.getString("account_number"));
+                account.setAccountBalance(resultSet.getBigDecimal("account_balance"));
+            }
         }
         return account;
     }

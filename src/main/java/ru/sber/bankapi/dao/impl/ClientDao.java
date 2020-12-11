@@ -25,12 +25,15 @@ public class ClientDao implements IClientDao {
         }
     }
 
+    /**
+     *      Лучше использовать prepared statement, а не statement.
+     */
     @Override
     public List<Client> getAll() throws SQLException {
         List<Client> clientsList = new ArrayList<>();
 
         try (Connection connection = ServiceDS.getConnection();
-             Statement statement = connection.createStatement();) {
+             Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(SQL_GET_ALL);
 
             while (resultSet.next()) {
@@ -51,10 +54,10 @@ public class ClientDao implements IClientDao {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_BY_ID)) {
             preparedStatement.setLong(1, clientId);
             ResultSet resultSet = preparedStatement.executeQuery();
-
-            client.setSelfId(resultSet.getLong("self_id"));
-            client.setClientName(resultSet.getString("client_name"));
-            //preparedStatement.executeUpdate();
+            if (resultSet.next()) {
+                client.setSelfId(resultSet.getLong("self_id"));
+                client.setClientName(resultSet.getString("client_name"));
+            }
         }
         return client;
     }

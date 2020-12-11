@@ -34,7 +34,6 @@ public class CardDao implements ICardDao {
             preparedStatement.setLong(1, card.getSelfId());
             preparedStatement.setLong(2, card.getAccountId());
             preparedStatement.setString(3, card.getCardNumber());
-            preparedStatement.executeUpdate();
         }
     }
 
@@ -66,10 +65,12 @@ public class CardDao implements ICardDao {
 
             preparedStatement.setLong(1, cardId);
             ResultSet resultSet = preparedStatement.executeQuery();
-            card.setSelfId(resultSet.getLong("self_id"));
-            card.setAccountId(resultSet.getLong("account_id"));
-            card.setCardNumber(resultSet.getString("card_number"));
-            preparedStatement.executeUpdate();
+            if (resultSet.next()) {
+                card.setSelfId(resultSet.getLong("self_id"));
+                card.setAccountId(resultSet.getLong("account_id"));
+                card.setCardNumber(resultSet.getString("card_number"));
+                preparedStatement.executeUpdate();
+            }
         }
         return card;
     }

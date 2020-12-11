@@ -31,7 +31,6 @@ public class ClientDaoTest {
         for (Client client2 : list2) {
             System.out.println(client2);
         }
-        System.out.println(new CardDao().getById(0L));
         System.out.println(clientDao.getById(10L));
         client.setClientName("Another name");
         clientDao.update(client);

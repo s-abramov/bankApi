@@ -10,6 +10,9 @@ import java.math.BigDecimal;
 
 public class GetBalanceHandler implements HttpHandler {
 
+    /**
+     *  Лучше внедрять глобальные объекты Dao или класса
+     */
     @Override
     public void handle(HttpExchange httpExchange) {
 
