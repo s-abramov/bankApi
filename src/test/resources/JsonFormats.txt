@@ -1,0 +1,6 @@
+getCardsHandler json type by account self ID { "selfId" : 0}
+getBalanceHanlder json type by account self ID { "selfId" : 0}
+newCardHandler json type by JSON AS CARD OBJECT WITHOUT self ID {"accountId":1,"cardNumber":"9999111122223333"}
+setBalanceHandler json type by account with self ID and balance { "selfId" : 0, "accountBalance" : 100.00}
+
+
